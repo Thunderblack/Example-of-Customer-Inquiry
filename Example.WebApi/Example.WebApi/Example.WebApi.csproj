@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="BusinessLogic\" />
+    <Folder Include="Controllers\" />
     <Folder Include="Middleware\" />
     <Folder Include="Models\" />
     <Folder Include="logs\" />
@@ -17,6 +18,10 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Example.WebApi.DataAccess\Example.WebApi.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.WebApi", "Example.WebApi\Example.WebApi.csproj", "{7C35F127-EB81-4955-9064-3BCA71206714}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.WebApi", "Example.WebApi\Example.WebApi.csproj", "{7C35F127-EB81-4955-9064-3BCA71206714}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D48396EB-B0C8-4B10-8FF5-077121E5BB76} = {D48396EB-B0C8-4B10-8FF5-077121E5BB76}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.WebApi.DataAccess", "Example.WebApi.DataAccess\Example.WebApi.DataAccess.csproj", "{D48396EB-B0C8-4B10-8FF5-077121E5BB76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.WebApi.DataAccess", "Example.WebApi.DataAccess\Example.WebApi.DataAccess.csproj", "{D48396EB-B0C8-4B10-8FF5-077121E5BB76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.WebApi.TestUnit", "Example.WebApi.TestUnit\Example.WebApi.TestUnit.csproj", "{83B9CF72-9045-47E3-AE09-7143213F5050}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.WebApi.TestUnit", "Example.WebApi.TestUnit\Example.WebApi.TestUnit.csproj", "{83B9CF72-9045-47E3-AE09-7143213F5050}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7C35F127-EB81-4955-9064-3BCA71206714} = {7C35F127-EB81-4955-9064-3BCA71206714}
 		{D48396EB-B0C8-4B10-8FF5-077121E5BB76} = {D48396EB-B0C8-4B10-8FF5-077121E5BB76}

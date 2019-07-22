@@ -21,9 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IRepositories\" />
     <Folder Include="Model\Extend\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

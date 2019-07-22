@@ -1,5 +1,7 @@
 ﻿using Example.WebApi.DataAccess.Common;
 using Example.WebApi.DataAccess.Model.Database;
+using Example.WebApi.DataAccess.Model.Database.Master;
+using Example.WebApi.DataAccess.Model.Database.Operation;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -41,7 +43,16 @@ namespace Example.WebApi.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
+            #region "Initial seed data"
+            Seed process = new Seed(modelBuilder);
+            process.InitialCustomerStatus();
+            process.InitialTransactionsStatus();
+            #endregion "Initial seed data"
+
             #region "Model on Creating"
+            modelBuilder.Entity<Customers>(entity => {
+                entity.HasIndex(x => x.email).IsUnique();
+            });
             #endregion "Model on Creating"
         }
 
@@ -71,5 +82,15 @@ namespace Example.WebApi.DataAccess
                 }
             }
         }
+
+        #region "Add Master Table"
+        public virtual DbSet<CustomerStatus> CustomerStatuses { get; set; }
+        public virtual DbSet<TransactionsStatus> TransactionStatuses { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
+        #endregion "Add Master Table"
+
+        #region "Add Transaction Table"
+        public virtual DbSet<Transactions> Transactionses { get; set; }
+        #endregion "Add Transaction Table"
     }
 }
