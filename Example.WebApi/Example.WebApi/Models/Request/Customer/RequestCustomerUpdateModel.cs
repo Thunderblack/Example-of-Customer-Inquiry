@@ -35,8 +35,8 @@ namespace Example.WebApi.Models.Request
 
                 RuleFor(r => r.customerName)
                               .Cascade(CascadeMode.StopOnFirstFailure)
-                              .MaximumLength(20)
-                              .WithMessage($"Maximum of field customerName is 20 characters")
+                              .MaximumLength(30)
+                              .WithMessage($"Maximum of field customerName is 30 characters")
                               .NotEmpty()
                               .WithMessage($"Field customerName had required!");
 

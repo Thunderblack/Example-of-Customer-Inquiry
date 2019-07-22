@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Model\Extend\" />
-    <Folder Include="SqlScripts\" />
   </ItemGroup>
 
 </Project>

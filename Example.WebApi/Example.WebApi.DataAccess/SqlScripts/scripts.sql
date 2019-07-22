@@ -12,7 +12,7 @@ GO
 CREATE TABLE [Customers] (
     [customerID] bigint NOT NULL,
     [email] nvarchar(25) NOT NULL,
-    [customerName] nvarchar(20) NOT NULL,
+    [customerName] nvarchar(30) NOT NULL,
     [mobile] nvarchar(10) NOT NULL,
     [status] nvarchar(10) NOT NULL,
     [CreatedDate] datetime2 NOT NULL,

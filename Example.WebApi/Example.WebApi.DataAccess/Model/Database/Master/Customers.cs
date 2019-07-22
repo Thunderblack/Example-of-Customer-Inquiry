@@ -25,7 +25,7 @@ namespace Example.WebApi.DataAccess.Model.Database.Master
 
         [Required]
         [Column(Order = 3)]
-        [StringLength(20)]
+        [StringLength(30)]
         public string customerName { get; set; }
 
         [Required]
