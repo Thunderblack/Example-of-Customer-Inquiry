@@ -45,8 +45,6 @@ namespace Example.WebApi.DataAccess
 
             #region "Initial seed data"
             Seed process = new Seed(modelBuilder);
-            process.InitialCustomerStatus();
-            process.InitialTransactionsStatus();
             #endregion "Initial seed data"
 
             #region "Model on Creating"
@@ -84,8 +82,6 @@ namespace Example.WebApi.DataAccess
         }
 
         #region "Add Master Table"
-        public virtual DbSet<CustomerStatus> CustomerStatuses { get; set; }
-        public virtual DbSet<TransactionsStatus> TransactionStatuses { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
         #endregion "Add Master Table"
 

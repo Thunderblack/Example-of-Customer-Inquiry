@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Example.WebApi.DataAccess.Common;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +38,15 @@ namespace Example.WebApi
 
             services.AddMvc(o => o.AllowEmptyInputInBodyModelBinding = true)
                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                   .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver());
+                   .AddFluentValidation(o =>
+                   {
+                       o.RegisterValidatorsFromAssemblyContaining<Startup>();
+                   })
+                   .AddJsonOptions(options =>
+                    {
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                        options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

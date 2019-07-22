@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Example.WebApi.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190722134647_InitialTable")]
+    [Migration("20190722154715_InitialTable")]
     partial class InitialTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,7 @@ namespace Example.WebApi.DataAccess.Migrations
 
             modelBuilder.Entity("Example.WebApi.DataAccess.Model.Database.Master.Customers", b =>
                 {
-                    b.Property<long>("customerID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<long>("customerID");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired();
@@ -50,7 +48,7 @@ namespace Example.WebApi.DataAccess.Migrations
 
                     b.Property<string>("status")
                         .IsRequired()
-                        .HasMaxLength(1);
+                        .HasMaxLength(10);
 
                     b.HasKey("customerID");
 
@@ -58,51 +56,6 @@ namespace Example.WebApi.DataAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("Example.WebApi.DataAccess.Model.Database.Master.CustomerStatus", b =>
-                {
-                    b.Property<string>("code")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(1);
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.HasKey("code");
-
-                    b.ToTable("CustomerStatus");
-
-                    b.HasData(
-                        new { code = "A", description = "Active" },
-                        new { code = "L", description = "Locked" },
-                        new { code = "S", description = "Suspend" },
-                        new { code = "C", description = "Cancel" },
-                        new { code = "D", description = "De-Active" }
-                    );
-                });
-
-            modelBuilder.Entity("Example.WebApi.DataAccess.Model.Database.Master.TransactionsStatus", b =>
-                {
-                    b.Property<string>("code")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(1);
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.HasKey("code");
-
-                    b.ToTable("TransactionsStatus");
-
-                    b.HasData(
-                        new { code = "S", description = "Success" },
-                        new { code = "W", description = "Waiting" },
-                        new { code = "C", description = "Canceled" },
-                        new { code = "F", description = "Failed" }
-                    );
                 });
 
             modelBuilder.Entity("Example.WebApi.DataAccess.Model.Database.Operation.Transactions", b =>
@@ -115,8 +68,6 @@ namespace Example.WebApi.DataAccess.Migrations
                         .IsRequired();
 
                     b.Property<DateTime>("CreatedDate");
-
-                    b.Property<long>("CustomerRefID");
 
                     b.Property<string>("UpdatedBy");
 
@@ -135,11 +86,11 @@ namespace Example.WebApi.DataAccess.Migrations
 
                     b.Property<string>("status")
                         .IsRequired()
-                        .HasMaxLength(1);
+                        .HasMaxLength(10);
 
                     b.HasKey("id");
 
-                    b.HasIndex("CustomerRefID");
+                    b.HasIndex("customerID");
 
                     b.ToTable("Transactions");
                 });
@@ -148,7 +99,7 @@ namespace Example.WebApi.DataAccess.Migrations
                 {
                     b.HasOne("Example.WebApi.DataAccess.Model.Database.Master.Customers", "customers")
                         .WithMany("transactions")
-                        .HasForeignKey("CustomerRefID")
+                        .HasForeignKey("customerID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

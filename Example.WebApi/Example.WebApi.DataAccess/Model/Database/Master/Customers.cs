@@ -1,8 +1,10 @@
 ﻿using Example.WebApi.DataAccess.Model.Database.Operation;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Example.WebApi.DataAccess.Model.Database.Master
@@ -13,6 +15,7 @@ namespace Example.WebApi.DataAccess.Model.Database.Master
         [Key]
         [Required]
         [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long customerID { get; set; }
 
         [Required]
@@ -32,9 +35,11 @@ namespace Example.WebApi.DataAccess.Model.Database.Master
 
         [Required]
         [Column(Order = 5)]
-        [StringLength(1)]
+        [StringLength(10)]
         public string status { get; set; }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public ICollection<Transactions> transactions { get; set; }
     }
 }

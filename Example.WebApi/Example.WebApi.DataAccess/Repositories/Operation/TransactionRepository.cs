@@ -14,14 +14,14 @@ namespace Example.WebApi.DataAccess.Repositories
 
         public void Create(Transactions data)
         {
-            if (data != null) throw new Exception("A transaction information cannot be null");
+            if (data == null) throw new Exception("A transaction information cannot be null");
 
             _context.Transactionses.Add(data);
         }
 
         public void Update(Transactions data)
         {
-            if (data != null) throw new Exception("A transaction information cannot be null");
+            if (data == null) throw new Exception("A transaction information cannot be null");
 
             var info = FindTransaction(data.id);
             if (info != null)
@@ -30,8 +30,6 @@ namespace Example.WebApi.DataAccess.Repositories
                 info.date = data.date;
                 info.currency = data.currency;
                 info.status = data.status;
-                info.UpdatedBy = data.UpdatedBy;
-                info.UpdatedDate = data.UpdatedDate;
 
                 _context.Entry(info).State = EntityState.Modified;
             }

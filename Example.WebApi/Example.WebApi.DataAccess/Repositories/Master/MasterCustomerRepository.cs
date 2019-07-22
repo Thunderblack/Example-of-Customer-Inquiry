@@ -1,4 +1,4 @@
-﻿using Example.WebApi.DataAccess.IRepositories.Master;
+﻿using Example.WebApi.DataAccess.IRepositories;
 using Example.WebApi.DataAccess.Model.Database.Master;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,14 +14,14 @@ namespace Example.WebApi.DataAccess.Repositories
 
         public void Create(Customers data)
         {
-            if (data != null) throw new Exception("A customer information cannot be null");
+            if (data == null) throw new Exception("A customer information cannot be null");
 
             _context.Customers.Add(data);
         }
 
         public void Update(Customers data)
         {
-            if (data != null) throw new Exception("A customer information cannot be null");
+            if (data == null) throw new Exception("A customer information cannot be null");
 
             var info = FindOneOfCustomerById(data.customerID);
             if (info != null)
@@ -29,8 +29,6 @@ namespace Example.WebApi.DataAccess.Repositories
                 info.customerName = data.customerName;
                 info.mobile = data.mobile;
                 info.status = data.status;
-                info.UpdatedBy = data.UpdatedBy;
-                info.UpdatedDate = data.UpdatedDate;
 
                 _context.Entry(info).State = EntityState.Modified;
             }
@@ -55,10 +53,21 @@ namespace Example.WebApi.DataAccess.Repositories
 
         public Customers FindOneOfCustomer(long id, string email)
         {
-            return _context.Customers
-                           .Where(x => x.customerID.Equals(id) && x.email.Equals(email))
-                           .Select(x => x)
-                           .FirstOrDefault();
+            if (id > 0 && string.IsNullOrEmpty(email))
+            {
+                return FindOneOfCustomerById(id);
+            }
+            else if (id == 0 && !string.IsNullOrEmpty(email))
+            {
+                return FindOneOfCustomerByEmail(email);
+            }
+            else
+            {
+                return _context.Customers
+                               .Where(x => x.customerID.Equals(id) && x.email.Equals(email))
+                               .Select(x => x)
+                               .FirstOrDefault();
+            }
         }
     }
 }

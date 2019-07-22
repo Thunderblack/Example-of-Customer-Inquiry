@@ -10,8 +10,8 @@ namespace Example.WebApi.DataAccess.Model.Database.Operation
     [Table("Transactions")]
     public class Transactions : LogTimeStamp
     {
-        [ForeignKey("CustomerRefID")]
-        public Customers customers { get; set; }
+        [ForeignKey("customerID")]
+        public virtual Customers customers { get; set; }
 
         [Key]
         [Required]
@@ -38,7 +38,7 @@ namespace Example.WebApi.DataAccess.Model.Database.Operation
 
         [Required]
         [Column(Order = 6)]
-        [StringLength(1)]
+        [StringLength(10)]
         public string status { get; set; }
     }
 }
