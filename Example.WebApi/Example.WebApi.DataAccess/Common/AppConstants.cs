@@ -7,6 +7,7 @@ namespace Example.WebApi.DataAccess.Common
     public class AppConstants
     {
         public static string UserName = "Anonymous";
+        public static int fetchNoOfRecently = 5;
         public class Transaction
         {
             public class Status
