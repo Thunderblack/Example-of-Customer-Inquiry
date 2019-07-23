@@ -29,19 +29,26 @@ namespace Example.WebApi.Controllers
         [Route("api/customer/inquiry")]
         public IActionResult InquiryCustomer([FromBody] RequestCustomerInquiryModel Models)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var result = _masterCustomerBusinessLogic.InquiryTransaction(Models);
-
-                if (result.customerID > 0)
+                try
                 {
-                    return Ok(result);
+                    var result = _masterCustomerBusinessLogic.InquiryTransaction(Models);
+
+                    if (result.customerID > 0)
+                    {
+                        return Ok(result);
+                    }
+                    else return Ok(DataAccess.Common.AppConstants.NotFoundMessage);
                 }
-                else return Ok(DataAccess.Common.AppConstants.NotFoundMessage);
+                catch
+                {
+                    return BadRequest();
+                }
             }
-            catch
+            else
             {
-                return BadRequest();
+                return BadRequest(ModelState.ValidationState);
             }
         }
 
@@ -49,14 +56,21 @@ namespace Example.WebApi.Controllers
         [Route("api/customer/create")]
         public IActionResult CreateCustomer([FromBody] RequestCustomerCreateModel Models)
         {
-            try
+            if (ModelState.IsValid)
             {
-                _masterCustomerBusinessLogic.CreateCustomer(Models);
-                return Ok(Models);
+                try
+                {
+                    _masterCustomerBusinessLogic.CreateCustomer(Models);
+                    return Ok(Models);
+                }
+                catch
+                {
+                    return BadRequest();
+                }
             }
-            catch
+            else
             {
-                return BadRequest();
+                return BadRequest(ModelState.ValidationState);
             }
         }
 
@@ -64,14 +78,21 @@ namespace Example.WebApi.Controllers
         [Route("api/customer/update")]
         public IActionResult UpdateCustomer([FromBody] RequestCustomerUpdateModel Models)
         {
-            try
+            if (ModelState.IsValid)
             {
-                _masterCustomerBusinessLogic.UpdateCustomer(Models);
-                return Ok(Models);
+                try
+                {
+                    _masterCustomerBusinessLogic.UpdateCustomer(Models);
+                    return Ok(Models);
+                }
+                catch
+                {
+                    return BadRequest();
+                }
             }
-            catch
+            else
             {
-                return BadRequest();
+                return BadRequest(ModelState.ValidationState);
             }
         }
     }

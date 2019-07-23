@@ -40,7 +40,9 @@ namespace Example.WebApi
                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                    .AddFluentValidation(o =>
                    {
+                       o.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
                        o.RegisterValidatorsFromAssemblyContaining<Startup>();
+                       o.ImplicitlyValidateChildProperties = true;
                    })
                    .AddJsonOptions(options =>
                     {

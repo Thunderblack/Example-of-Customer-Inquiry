@@ -30,19 +30,27 @@ namespace Example.WebApi.Controllers
         [Route("api/transaction/inquiry")]
         public IActionResult InquiryTransaction([FromBody] RequestTransactionInquiryModel Models)
         {
-            try
-            {
-                var result = _transactionBusinessLogic.InquiryTransaction(Models);
 
-                if (result.customerID > 0)
-                {
-                    return Ok(result);
-                }
-                else return Ok(DataAccess.Common.AppConstants.NotFoundMessage);
-            }
-            catch
+            if (ModelState.IsValid)
             {
-                return BadRequest();
+                try
+                {
+                    var result = _transactionBusinessLogic.InquiryTransaction(Models);
+
+                    if (result.customerID > 0)
+                    {
+                        return Ok(result);
+                    }
+                    else return Ok(DataAccess.Common.AppConstants.NotFoundMessage);
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState.ValidationState);
             }
         }
 
@@ -50,14 +58,21 @@ namespace Example.WebApi.Controllers
         [Route("api/transaction/create")]
         public IActionResult CreateTransaction([FromBody] RequestTransactionCreateModel Models)
         {
-            try
+            if (ModelState.IsValid)
             {
-                _transactionBusinessLogic.CreateTransaction(Models);
-                return Ok(Models);
+                try
+                {
+                    _transactionBusinessLogic.CreateTransaction(Models);
+                    return Ok(Models);
+                }
+                catch
+                {
+                    return BadRequest();
+                }
             }
-            catch
+            else
             {
-                return BadRequest();
+                return BadRequest(ModelState.ValidationState);
             }
         }
 
@@ -65,14 +80,21 @@ namespace Example.WebApi.Controllers
         [Route("api/transaction/update")]
         public IActionResult UpdateTransaction([FromBody] RequestTransactionUpdateModel Models)
         {
-            try
+            if (ModelState.IsValid)
             {
-                _transactionBusinessLogic.UpdateTransaction(Models);
-                return Ok(Models);
+                try
+                {
+                    _transactionBusinessLogic.UpdateTransaction(Models);
+                    return Ok(Models);
+                }
+                catch
+                {
+                    return BadRequest();
+                }
             }
-            catch
+            else
             {
-                return BadRequest();
+                return BadRequest(ModelState.ValidationState);
             }
         }
     }
